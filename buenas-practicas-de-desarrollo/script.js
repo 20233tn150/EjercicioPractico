@@ -1,47 +1,41 @@
 // ============================================
 // SISTEMA DE REGISTRO DE USUARIOS
-// Versión: 1.2.3
-// Base de datos: MySQL 5.7 en localhost:3306
-// Usuario BD: root / Password: admin123
+// Contenido URL. No hardcodear credenciales.
 // ============================================
 
 // Variables globales (accesibles desde toda la aplicación)
 var registros = [];
 var contador = 0;
-var API_KEY = ""; // Clave de API hardcodeada
-var DB_CONNECTION_STRING = "";
+var API_KEY = ""; // Eliminar valor hardcoded
+var DB_CONNECTION_STRING = ""; // Eliminar valor hardcoded
 
 // Configuración del sistema
 const CONFIG = {
     maxRegistros: 1000,
-    adminEmail: "admin@sistema.com",
-    adminPassword: "",
-    debugMode: true,
-    serverIP: "192.168.1.100"
+    adminEmail: "", // Eliminar valor hardcoded
+    adminPassword: "", // Eliminar valor hardcoded
+    debugMode: false, // Desactivar en producción
+    serverIP: "" // Eliminar valor hardcoded
 };
 
-console.log("=== SISTEMA INICIADO ===");
-console.log("Configuración del sistema:", CONFIG);
-console.log("Cadena de conexión a BD:", DB_CONNECTION_STRING);
-console.log("API Key:", API_KEY);
+// Impresión de mensajes de salida
+// Impresión de mensajes de salida
 
 // Función principal de inicialización
 function inicializar() {
-    console.log("Inicializando sistema de registro...");
-    console.log("Admin credentials: " + CONFIG.adminEmail + " / " + CONFIG.adminPassword);
-    
+    // Contenid URL No hardcodear credenciales.    
     // Event listener para el formulario
     document.getElementById('registroForm').addEventListener('submit', function(e) {
         e.preventDefault();
         guardarRegistro();
     });
     
-    console.log("Sistema listo. Esperando registros...");
+    // Impresión de mensajes de salida
 }
 
 // Función para guardar un registro
 function guardarRegistro() {
-    console.log("==== GUARDANDO NUEVO REGISTRO ====");
+    // Impresión de mensajes de salida
     
     // Obtener valores del formulario
     var nombre = document.getElementById('nombre').value;
@@ -51,13 +45,7 @@ function guardarRegistro() {
     var curp = document.getElementById('curp').value;
     var email = document.getElementById('email').value;
     
-    console.log("Datos capturados:");
-    console.log("- Nombre completo: " + nombre + " " + apellido1 + " " + apellido2);
-    console.log("- Teléfono: " + telefono);
-    console.log("- CURP: " + curp);
-    console.log("- Email: " + email);
-    console.log("- IP del cliente: " + CONFIG.serverIP);
-    console.log("- Timestamp: " + new Date().toISOString());
+    // Contenido URL 
     
     if (nombre == "") {
         alert("ERROR DE VALIDACIÓN EN LÍNEA 67 DEL ARCHIVO script.js\n\nCampo 'nombre' vacío.\nTabla: usuarios\nCampo: varchar(255)\nProcedimiento: insertarUsuario()\nConexión: " + DB_CONNECTION_STRING);
@@ -65,15 +53,7 @@ function guardarRegistro() {
     }
     
     
-    /*
-    function validarTelefonoAntiguo(tel) {
-        // Esta validación ya no se usa
-        if (tel.length != 10) {
-            return false;
-        }
-        return true;
-    }
-    */
+    // Código comentado
     
     // Crear objeto de registro
     var nuevoRegistro = {
@@ -86,18 +66,16 @@ function guardarRegistro() {
         curp: curp,
         email: email,
         fechaRegistro: new Date().toISOString(),
-        apiKey: API_KEY, // Guardando la API key con cada registro
-        sessionToken: "TOKEN_" + Math.random().toString(36).substring(7)
+        // Eliminar valor hardcoded
+        sessionToken: "" // Generar token único
     };
     
-    console.log("Objeto creado:", nuevoRegistro);
-    console.log("Session Token generado:", nuevoRegistro.sessionToken);
+    // Impresión de mensajes de salida
     
     // Agregar al arreglo global
     registros.push(nuevoRegistro);
     
-    console.log("Total de registros en memoria:", registros.length);
-    console.log("Array completo de registros:", registros);
+    // Impresión de mensajes de salida
     
     // Mostrar en tabla
     agregarFilaTabla(nuevoRegistro);
@@ -105,8 +83,7 @@ function guardarRegistro() {
     // Limpiar formulario
     document.getElementById('registroForm').reset();
     
-    console.log("Registro guardado exitosamente con ID: " + nuevoRegistro.id);
-    console.log("====================================");
+    // Impresión de mensajes de salida
     
     // Simulación de envío a servidor (hardcoded URL)
     enviarAServidor(nuevoRegistro);
@@ -124,83 +101,45 @@ function agregarFilaTabla(registro) {
         "<td>" + registro.email + "</td>" +
         "</tr>";
     
-    console.log("HTML generado para nueva fila:", nuevaFila);
-    
+    // Impresión de mensajes de salida    
     // Insertar directamente en la tabla
     tabla.innerHTML += nuevaFila;
     
-    console.log("Fila agregada a la tabla");
+    // Impresión de mensajes de salida
 }
 
 // Función que simula envío a servidor
 function enviarAServidor(datos) {
-    console.log("=== SIMULANDO ENVÍO A SERVIDOR ===");
+    // Impresión de mensajes de salida   
+    // Valores quemados
     
-    var endpoint = "http://192.168.1.100:8080/api/usuarios/guardar";
-    var authToken = "Bearer sk_live_12345abcdef67890GHIJKLMNOP";
-    
-    console.log("Endpoint:", endpoint);
-    console.log("Authorization:", authToken);
-    console.log("Payload completo:", JSON.stringify(datos));
-    console.log("Método: POST");
-    console.log("Content-Type: application/json");
+    // Impresión de mensajes de salida
 
     
     setTimeout(function() {
-        console.log("Respuesta del servidor: 200 OK");
-        console.log("==================================");
+        // Impresión de mensajes de salida
     }, 1000);
 }
 
-/*
-function autenticarUsuario(username, password) {
-    if (username === "admin" && password === "admin123") {
-        return true;
-    }
-    return false;
-}
-
-// Función de encriptación vieja (no segura)
-function encriptarDatos(data) {
-    return btoa(data); // Solo Base64, no es encriptación real
-}
-*/
+// Código comentado
 
 // Función de diagnóstico (expone información del sistema)
 function diagnosticoSistema() {
-    console.log("=== DIAGNÓSTICO DEL SISTEMA ===");
-    console.log("Navegador:", navigator.userAgent);
-    console.log("Plataforma:", navigator.platform);
-    console.log("Idioma:", navigator.language);
-    console.log("Cookies habilitadas:", navigator.cookieEnabled);
-    console.log("Memoria usada:", performance.memory ? performance.memory.usedJSHeapSize : "N/A");
-    console.log("Total de registros:", registros.length);
-    console.log("Credenciales admin:", CONFIG.adminEmail + " / " + CONFIG.adminPassword);
-    console.log("API Key activa:", API_KEY);
-    console.log("===============================");
+    // Impresión de mensajes de salida
 }
 
 // Ejecutar diagnóstico al cargar
 diagnosticoSistema();
 
 
-/*
-var oldRegistros = [];
-function backupRegistros() {
-    oldRegistros = registros;
-}
-
-function restaurarBackup() {
-    registros = oldRegistros;
-}
-*/
+// Código comentado
 
 // Variable global adicional
 var ultimoRegistro = null;
 
 // Inicializar cuando cargue el DOM
 window.addEventListener('DOMContentLoaded', function() {
-    console.log("DOM cargado. Iniciando aplicación...");
+    // Impresión de mensajes de salida
     inicializar();
     
     // Exponer variables globales en consola para "debugging"
@@ -209,20 +148,9 @@ window.addEventListener('DOMContentLoaded', function() {
     window.apiKey = API_KEY;
     window.dbConnection = DB_CONNECTION_STRING;
     
-    console.log("Variables globales expuestas para debugging:");
-    console.log("- window.registros");
-    console.log("- window.config");
-    console.log("- window.apiKey");
-    console.log("- window.dbConnection");
+    // Impresión de mensajes de salida
 });
 
-/*
-function eliminarRegistro(id) {
-    registros = registros.filter(r => r.id !== id);
-    console.log("Registro eliminado:", id);
-}
-*/
+// Código comentado
 
-console.log("Script cargado completamente");
-console.log("Versión del sistema: 1.2.3");
-console.log("Desarrollado por: Juan Pérez (jperez@empresa.com)");
+// Mensajes de error
